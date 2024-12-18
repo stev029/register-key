@@ -34,6 +34,9 @@ class Vocard(commands.Bot):
     async def on_message(self, message: discord.Message, /) -> None:
         if message.author.bot or not message.guild:
             return False
+        
+        if message.author.name in ["alzeaaa"]:
+            return await message.reply("Sesama bot jangan berisik!")
 
         if self.user.id in message.raw_mentions and not message.mention_everyone:
             prefix = await self.command_prefix(self, message)
@@ -179,5 +182,7 @@ bot = Vocard(
 )
 
 if __name__ == "__main__":
+    import keep
+    keep.keep_alive()
     update.check_version(with_msg=True)
     bot.run(func.settings.token, root_logger=True)

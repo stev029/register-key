@@ -3,3 +3,4 @@ Vocard.rar
 *.pyc
 settings.json
 logs
+venv
