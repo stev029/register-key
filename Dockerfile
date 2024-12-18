@@ -1,7 +1,4 @@
-FROM python:3.12-slim
-
-# Install build dependencies
-RUN apt-get update -y && apt-get install -y gcc python3-dev
+FROM python:3-alphine as builder
 
 # Set the working directory to /app
 WORKDIR /app
@@ -10,6 +7,7 @@ WORKDIR /app
 COPY . /app
 
 # Install any needed packages specified in requirements.txt
+COPY settings_Example.json settings.json
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Run main.py when the container launches
