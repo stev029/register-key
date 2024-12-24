@@ -33,6 +33,7 @@ from function import (
     format_time,
     get_source,
     get_user,
+    get_settings,
     get_lang,
     truncate_string,
     cooldown_check,
@@ -134,6 +135,10 @@ class Basic(commands.Cog):
     async def play(self, ctx: commands.Context, *, query: str, start: str = "0", end: str = "0") -> None:
         "Loads your input and added it to the queue."
         player: voicelink.Player = ctx.guild.voice_client
+        channel = (await get_settings(ctx.guild.id)).get("textchannel")
+        if channel and channel != ctx.channel.id:
+            return await send(ctx, "wrongChannel", ctx.guild.get_channel(channel).mention, ephemeral=True)
+        
         if not player:
             player = await voicelink.connect_channel(ctx)
 
@@ -156,6 +161,7 @@ class Basic(commands.Cog):
                 texts = await get_lang(ctx.guild.id, "live", "trackLoad_pos", "trackLoad")
                 await ctx.send((f"`{texts[0]}`" if tracks[0].is_stream else "") + (texts[1].format(tracks[0].title, tracks[0].uri, tracks[0].author, tracks[0].formatted_length, position) if position >= 1 and player.is_playing else texts[2].format(tracks[0].title, tracks[0].uri, tracks[0].author, tracks[0].formatted_length)), allowed_mentions=False)
         except voicelink.QueueFull as e:
+            print(e)
             await ctx.send(e)
         finally:
             if not player.is_playing:

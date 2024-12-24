@@ -1,27 +1,23 @@
 {
-    "token": "MTMxODg1NDUxNjA0NDczMDM3OA.G5Cf4g.d55fc25QYe5lR1O_shy7q3QIUEpWqzRALLDWy0",
-    "client_id": "1318854516044730378",
-    "spotify_client_id": "8953026fa50941eb83bb24e55db5344a",
-    "spotify_client_secret": "eb873ed1e1e54be586ca256aa4c3b240",
+    "token": "YOUR_BOT_TOKEN",
+    "client_id": "YOUR_BOT_CLIENT_ID",
+    "spotify_client_id": "YOUR_SPOTIFY_CLIENT_ID",
+    "spotify_client_secret": "YOUR_SPOTIFY_CLIENT_SECRET",
     "genius_token": "YOUR_GENIUS_TOKEN",
-    "mongodb_url": "mongodb+srv://abyy1144:Abuygt123#@cluster0.iohnp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-    "mongodb_name": "bot-discord",
+    "mongodb_url": "YOUR_MONGODB_URL",
+    "mongodb_name": "YOUR_MONGODB_DB_NAME",
     "nodes": {
         "DEFAULT": {
-            "host": "lavalink.jirayu.net",
-            "port": 13592,
+            "host": "lavalink",
+            "port": 2333,
             "password": "youshallnotpass",
             "secure": false,
-            "identifier": "salee-plugin"
-        }
+            "identifier": "DEFAULT"
+        }   
     },
     "prefix": "?",
     "activity": [
-        {
-            "type": "playing",
-            "name": "Alat Kencing",
-            "status": "online"
-        }
+        {"type": "listening", "name": "/help", "status": "online"}
     ],
     "logging": {
         "file": {
@@ -36,7 +32,7 @@
         "max-history": 30
     },
     "bot_access_user": [],
-    "embed_color": "0xb3b3b3",
+    "embed_color":"0xb3b3b3",
     "default_max_queue": 1000,
     "lyrics_platform": "lyrist",
     "ipc_client": {
@@ -112,49 +108,20 @@
             }
         },
         "default_buttons": [
-            [
-                "back",
-                "resume",
-                "skip",
-                {
-                    "stop": "red"
-                },
-                "add"
-            ],
-            [
-                "tracks"
-            ],
-            [
-                "effects"
-            ]
+            ["back", "resume", "skip", {"stop": "red"}, "add"],
+            ["tracks"]
         ],
         "disableButtonText": false
     },
     "default_voice_status_template": "{{@@track_name@@ != 'None' ?? @@track_source_emoji@@ Now Playing: @@track_name@@ // Waiting for song requests}}",
     "cooldowns": {
-        "connect": [
-            2,
-            30
-        ],
-        "playlist view": [
-            1,
-            30
-        ]
+        "connect": [2, 30],
+        "playlist view": [1, 30]
     },
     "aliases": {
-        "connect": [
-            "join"
-        ],
-        "leave": [
-            "stop",
-            "bye"
-        ],
-        "play": [
-            "p"
-        ],
-        "view": [
-            "v"
-        ]
-    },
-    "version": "v2.6.9"
+        "connect": ["join"],
+        "leave": ["stop", "bye"],
+        "play": ["p"],
+        "view": ["v"]
+    }
 }

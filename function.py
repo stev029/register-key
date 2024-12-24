@@ -23,7 +23,7 @@ if not os.path.exists(os.path.join(ROOT_DIR, "settings.json")):
 
 #--------------- Cache Var ---------------
 settings: Settings
-logger: logging.Logger = logging.getLogger("vocard")
+logger: logging.Logger = logging.getLogger("Unrivaled")
 
 MONGO_DB: AsyncIOMotorClient
 SETTINGS_DB: AsyncIOMotorCollection

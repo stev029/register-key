@@ -21,12 +21,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import types
+from typing import Union
 import discord
 import voicelink
 import psutil
 import function as func
 
-from discord import app_commands
+from discord import Message, app_commands
 from discord.ext import commands
 from function import (
     LANGS,
@@ -246,6 +248,30 @@ class Settings(commands.Cog, name="settings"):
         """Customize the channel topic template"""
         await update_settings(ctx.guild.id, {"$set": {'stage_announce_template': template}})
         await send(ctx, "SetStageAnnounceTemplate")
+
+    @settings.command("verify", aliases=get_aliases("verify"))
+    @commands.has_permissions(manage_guild=True)
+    @commands.dynamic_cooldown(cooldown_check, commands.BucketType.guild)
+    async def verify(self, ctx: commands.Context, channel: discord.TextChannel, emoji: discord.Emoji, text: str = None, role: discord.Role = None, message: discord.Message = None):
+        """Enable and set verify with react message for get a role"""
+        await send(ctx, "verify", channel.mention, emoji, ephemeral=True)
+        
+        if message:
+            await message.add_reaction(emoji)
+
+
+        # text: discord.Message = await channel.send(text)
+        # await text.pin()
+
+        # await update_settings(ctx.guild.id, {"$set":{"verify": {"message_id": text.id, "channel": channel.id, "emoji": emoji}}})
+
+    @settings.command("textchannel", aliases=get_aliases("textchannel"))
+    @commands.has_permissions(manage_guild=True)
+    @commands.dynamic_cooldown(cooldown_check, commands.BucketType.guild)
+    async def testchannel(self, ctx: commands.Context, channel: discord.TextChannel = None) -> None:
+        """Set text channel for only commands this bot can use in"""
+        await update_settings(ctx.guild.id, {"$set": {"textchannel": channel.id}})
+        await send(ctx, "SetTextChannel", channel.mention)
 
     @app_commands.command(name="debug")
     async def debug(self, interaction: discord.Interaction):
